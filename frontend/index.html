@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Match — инвентарь событий</title>
+    <link rel="stylesheet" href="style/styles.css">
+</head>
+<body>
+    <header class="top">
+        <div>
+            <p class="kicker">ХК Авангард · Data Match · шаг 1</p>
+            <h1>Инвентарь действий</h1>
+            <p class="lead">
+                Рейтинг полевых игроков считается только по типам событий,
+                которые есть и в 999 матчах train, и в 84 матчах теста.
+            </p>
+        </div>
+        <div class="actions">
+            <a class="btn" id="download-json" href="/api/inventory">Скачать JSON</a>
+            <a class="btn btn-accent" id="download-csv" href="/api/event-types.csv">Скачать CSV</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="error" class="banner hidden" hidden></section>
+
+        <section class="stats" id="stats"></section>
+
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Семейства событий</h2>
+                <p class="hint">Train — 999 матчей. Test — 84 матча T113, КХЛ 2025/26.</p>
+            </div>
+            <div id="families" class="families"></div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Типы событий</h2>
+                <div class="filters">
+                    <label>
+                        Поиск
+                        <input type="search" id="search" placeholder="pass_complete, steal…">
+                    </label>
+                    <label>
+                        Статус
+                        <select id="status-filter">
+                            <option value="all">все</option>
+                            <option value="shared">есть в обоих (пойдут в рейтинг)</option>
+                            <option value="train_only">только train (не считать)</option>
+                            <option value="test_only">только test</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Тип</th>
+                            <th>Семейство</th>
+                            <th>Статус</th>
+                            <th class="num">Train</th>
+                            <th class="num">Test</th>
+                        </tr>
+                    </thead>
+                    <tbody id="event-rows"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <script src="js/app.js"></script>
+</body>
+</html>

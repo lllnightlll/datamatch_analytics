@@ -1,0 +1,85 @@
+{
+  "rules": [
+    {
+      "family": "shift",
+      "prefixes": ["shift_"],
+      "exact": []
+    },
+    {
+      "family": "lineup",
+      "prefixes": ["lineup_"],
+      "exact": []
+    },
+    {
+      "family": "shot",
+      "prefixes": ["shot_"],
+      "exact": ["goal", "so_attempt", "so_goal", "goal_error"]
+    },
+    {
+      "family": "pass",
+      "prefixes": ["pass_", "board_pass", "key_pass", "receive"],
+      "exact": ["assist_primary", "assist_secondary", "receive", "receive_failed"]
+    },
+    {
+      "family": "touch",
+      "prefixes": [],
+      "exact": ["touch"]
+    },
+    {
+      "family": "duel",
+      "prefixes": ["duel", "board_battle"],
+      "exact": ["duel", "body_hit", "stick_check"]
+    },
+    {
+      "family": "steal",
+      "prefixes": ["intercept"],
+      "exact": ["steal", "intercept"]
+    },
+    {
+      "family": "turnover",
+      "prefixes": ["turnover"],
+      "exact": ["puck_loss"]
+    },
+    {
+      "family": "transition",
+      "prefixes": ["entry_", "exit_", "dump_in", "dump_misc", "clear_out", "rush", "clearance"],
+      "exact": ["carry", "dump_misc", "clearance"]
+    },
+    {
+      "family": "faceoff",
+      "prefixes": ["faceoff"],
+      "exact": []
+    },
+    {
+      "family": "rebound",
+      "prefixes": ["rebound"],
+      "exact": []
+    },
+    {
+      "family": "deke",
+      "prefixes": ["deke_"],
+      "exact": []
+    },
+    {
+      "family": "chance",
+      "prefixes": [],
+      "exact": ["scoring_chance"]
+    },
+    {
+      "family": "stoppage",
+      "prefixes": [],
+      "exact": [
+        "whistle",
+        "period_start",
+        "intermission",
+        "game_end",
+        "ot_start",
+        "so_start",
+        "icing",
+        "offside",
+        "penalty_return",
+        "infraction"
+      ]
+    }
+  ]
+}
