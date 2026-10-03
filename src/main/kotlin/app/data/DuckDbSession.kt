@@ -19,6 +19,11 @@ fun ResultSet.getNullableInt(column: String): Int? {
     return if (wasNull()) null else value
 }
 
+fun ResultSet.getNullableDouble(column: String): Double? {
+    val value = getDouble(column)
+    return if (wasNull()) null else value
+}
+
 class DuckDbSession : AutoCloseable {
     private val connection: Connection
 
