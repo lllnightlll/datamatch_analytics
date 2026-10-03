@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Match — время на льду</title>
+    <link rel="stylesheet" href="style/styles.css">
+</head>
+<body>
+    <header class="top">
+        <div>
+            <p class="kicker">ХК Авангард · Data Match · шаг 2</p>
+            <h1>Время на льду</h1>
+            <nav class="nav">
+                <a class="nav-link" href="/">События</a>
+                <a class="nav-link active" href="/toi.html">Время на льду</a>
+                <a class="nav-link" href="/xg.html">xG</a>
+            </nav>
+            <p class="lead">
+                ТОИ восстановлен из смен: actor вышел, other ушёл.
+                Буллиты (period = 0) и вратари не входят. Порог для рейтинга
+                задан в toi-rules.json (по умолчанию 20 минут).
+            </p>
+        </div>
+        <div class="actions">
+            <a class="btn" id="download-json" href="/api/toi?split=test">Скачать JSON</a>
+            <a class="btn btn-accent" id="download-csv" href="/api/toi.csv?split=test">Скачать CSV</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="error" class="banner hidden" hidden></section>
+        <section class="stats" id="stats"></section>
+
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Полевые игроки</h2>
+                <div class="filters">
+                    <label>
+                        Набор
+                        <select id="split-filter">
+                            <option value="test" selected>тест, 84 матча</option>
+                            <option value="train">train, 999 матчей</option>
+                        </select>
+                    </label>
+                    <label>
+                        Команда
+                        <select id="team-filter">
+                            <option value="all">все</option>
+                            <option value="avangard">играли за T113</option>
+                            <option value="opponents">только соперники</option>
+                        </select>
+                    </label>
+                    <label>
+                        Амплуа
+                        <select id="position-filter">
+                            <option value="all">все полевые</option>
+                            <option value="F">нападающие</option>
+                            <option value="D">защитники</option>
+                        </select>
+                    </label>
+                    <label>
+                        Поиск
+                        <input type="search" id="search" placeholder="P00018, T113…">
+                    </label>
+                    <label class="check">
+                        <input type="checkbox" id="min-toi" checked>
+                        только ≥ порога ТОИ
+                    </label>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Игрок</th>
+                            <th>Амплуа</th>
+                            <th>Команда</th>
+                            <th class="num">Игр</th>
+                            <th class="num">ТОИ, мин</th>
+                            <th class="num">5v5</th>
+                            <th class="num">Спецбригады</th>
+                            <th>Порог</th>
+                        </tr>
+                    </thead>
+                    <tbody id="toi-rows"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <script src="js/toi.js"></script>
+</body>
+</html>
