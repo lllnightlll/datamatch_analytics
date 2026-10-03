@@ -1,0 +1,12 @@
+{
+  "shiftPrefix": "shift_",
+  "goalieShiftType": "shift_G",
+  "ignoredPeriods": [0],
+  "fiveOnFiveN": 6,
+  "defaultNHome": 6,
+  "defaultNAway": 6,
+  "regulationPeriodSeconds": 1200.0,
+  "minRatingToiMinutes": 20.0,
+  "avangardTeamId": "T113",
+  "periodBoundaryTypes": ["period_start", "ot_start", "intermission", "game_end"]
+}

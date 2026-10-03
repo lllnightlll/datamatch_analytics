@@ -1,0 +1,12 @@
+{
+  "attemptTypes": ["goal", "shot_on_target", "shot_missed", "shot_blocked"],
+  "goalType": "goal",
+  "ignoredPeriods": [0],
+  "goalObject": "goal_opp_center",
+  "defaultRinkType": "european_60x30",
+  "fiveOnFiveN": 6,
+  "l2Lambda": 0.1,
+  "maxIterations": 25,
+  "holdoutMatchMod": 5,
+  "calibrationBins": 8
+}
