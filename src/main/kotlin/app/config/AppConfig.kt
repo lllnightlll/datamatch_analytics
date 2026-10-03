@@ -9,7 +9,7 @@ import java.nio.file.Path
  *
  * Переменные:
  * - DATAMATCH_ROOT — корень репозитория (по умолчанию user.dir)
- * - DATAMATCH_DATA_DIR — папка с CSV/parquet (по умолчанию <root>/data)
+ * - DATAMATCH_DATA_DIR — папка с CSV/parquet (по умолчанию <root>/datas или <root>/data)
  * - DATAMATCH_FRONTEND_DIR — статика HTML (по умолчанию <root>/frontend)
  * - DATAMATCH_PORT — HTTP-порт (по умолчанию 8787)
  */
@@ -31,13 +31,24 @@ data class AppConfig(
     }
 
     companion object {
+        private val DEFAULT_DATA_DIR_NAMES = listOf("datas", "data")
+
+        fun resolveDataRoot(projectRoot: Path): Path {
+            val fromEnv = System.getenv("DATAMATCH_DATA_DIR")
+            if (!fromEnv.isNullOrBlank()) {
+                return Path.of(fromEnv).toAbsolutePath().normalize()
+            }
+            val found = DEFAULT_DATA_DIR_NAMES
+                .map { projectRoot.resolve(it) }
+                .firstOrNull { Files.isDirectory(it) }
+            return (found ?: projectRoot.resolve("datas")).toAbsolutePath().normalize()
+        }
+
         fun load(): AppConfig {
             val projectRoot = Path.of(
                 System.getenv("DATAMATCH_ROOT") ?: System.getProperty("user.dir"),
             ).toAbsolutePath().normalize()
-            val dataRoot = Path.of(
-                System.getenv("DATAMATCH_DATA_DIR") ?: projectRoot.resolve("data").toString(),
-            ).toAbsolutePath().normalize()
+            val dataRoot = resolveDataRoot(projectRoot)
             val frontendRoot = Path.of(
                 System.getenv("DATAMATCH_FRONTEND_DIR") ?: projectRoot.resolve("frontend").toString(),
             ).toAbsolutePath().normalize()
