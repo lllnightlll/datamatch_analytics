@@ -49,6 +49,19 @@ class DuckDbSession : AutoCloseable {
         }
     }
 
+    fun forEachRow(
+        sql: String,
+        consume: (ResultSet) -> Unit,
+    ) {
+        connection.createStatement().use { statement ->
+            statement.executeQuery(sql).use { resultSet ->
+                while (resultSet.next()) {
+                    consume(resultSet)
+                }
+            }
+        }
+    }
+
     fun <T> querySingle(
         sql: String,
         binder: (PreparedStatement) -> Unit = {},
