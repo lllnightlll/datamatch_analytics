@@ -48,3 +48,6 @@ bin/
 ### Workspace ###
 datasets/
 datas/
+
+### Files ###
+test_ratings.csv

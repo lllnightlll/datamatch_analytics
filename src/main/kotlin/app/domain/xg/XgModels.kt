@@ -67,6 +67,13 @@ data class XgSplitMetrics(
     val brier: Double,
 )
 
+data class ScoredShot(
+    val matchId: String,
+    val playerId: String?,
+    val xg: Double,
+    val isGoal: Boolean,
+)
+
 data class PlayerXg(
     val playerId: String,
     val positionName: String,

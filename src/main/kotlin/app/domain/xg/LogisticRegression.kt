@@ -1,5 +1,6 @@
 package app.domain.xg
 
+import app.domain.math.LinearSystem
 import kotlin.math.abs
 import kotlin.math.exp
 import kotlin.math.ln
@@ -130,7 +131,7 @@ class LogisticRegression(
                     grad[j] += l2Lambda * weights[j]
                     hessian[j][j] += l2Lambda
                 }
-                val step = solve(hessian, grad)
+                val step = LinearSystem.solve(hessian, grad)
                 var shift = 0.0
                 for (j in 0 until p) {
                     weights[j] -= step[j]
@@ -139,48 +140,6 @@ class LogisticRegression(
                 if (shift < 1e-6) return weights
             }
             return weights
-        }
-
-        /**
-         * Гаусс с выбором ведущего элемента: Hx = g.
-         */
-        internal fun solve(matrix: Array<DoubleArray>, vector: DoubleArray): DoubleArray {
-            val n = vector.size
-            val a = Array(n) { i -> matrix[i].copyOf() }
-            val b = vector.copyOf()
-            for (col in 0 until n) {
-                var pivot = col
-                var best = abs(a[col][col])
-                for (row in col + 1 until n) {
-                    val value = abs(a[row][col])
-                    if (value > best) {
-                        best = value
-                        pivot = row
-                    }
-                }
-                require(best > 1e-12) { "Вырожденный гессиан xG" }
-                if (pivot != col) {
-                    val tmp = a[col]
-                    a[col] = a[pivot]
-                    a[pivot] = tmp
-                    val tb = b[col]
-                    b[col] = b[pivot]
-                    b[pivot] = tb
-                }
-                val diag = a[col][col]
-                for (row in col + 1 until n) {
-                    val factor = a[row][col] / diag
-                    for (k in col until n) a[row][k] -= factor * a[col][k]
-                    b[row] -= factor * b[col]
-                }
-            }
-            val x = DoubleArray(n)
-            for (i in n - 1 downTo 0) {
-                var sum = b[i]
-                for (k in i + 1 until n) sum -= a[i][k] * x[k]
-                x[i] = sum / a[i][i]
-            }
-            return x
         }
     }
 }
