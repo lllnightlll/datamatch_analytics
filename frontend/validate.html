@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Match — проверка</title>
+    <link rel="stylesheet" href="style/styles.css">
+</head>
+<body>
+    <header class="top">
+        <div>
+            <p class="kicker">ХК Авангард · Data Match · шаг 6</p>
+            <h1>Split-half на 999 матчах</h1>
+            <nav class="nav">
+                <a class="nav-link" href="/">События</a>
+                <a class="nav-link" href="/toi.html">Время на льду</a>
+                <a class="nav-link" href="/xg.html">xG</a>
+                <a class="nav-link" href="/threat.html">Угроза</a>
+                <a class="nav-link" href="/ratings.html">Рейтинг</a>
+                <a class="nav-link active" href="/validate.html">Проверка</a>
+                <a class="nav-link" href="/deliver.html">Сдача</a>
+            </nav>
+            <p class="lead">
+                Чётные match_id — рейтинг (RAPM / 60). Нечётные — исходы:
+                G+A, xG и ценность действий. База: G+A, броски и плюс-минус
+                той же первой половины. Не точность на тесте.
+            </p>
+        </div>
+        <div class="actions">
+            <a class="btn" href="/api/validate">Скачать JSON</a>
+            <a class="btn btn-accent" href="/api/validate.csv">Скачать корреляции</a>
+        </div>
+    </header>
+    <main>
+        <section id="error" class="banner hidden" hidden></section>
+        <section class="stats" id="stats"></section>
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Спирмен к G+A / 60 на второй половине</h2>
+                <p class="hint">Чем выше столбец, тем лучше предсказание чужих голов и передач.</p>
+            </div>
+            <div id="bars" class="families"></div>
+        </section>
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Корреляции</h2>
+                <p class="hint">Пирсон и Спирмен. n — игроки с ТОИ в обеих половинах.</p>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Предиктор (половина 1)</th>
+                            <th>Исход (половина 2)</th>
+                            <th class="num">Пирсон</th>
+                            <th class="num">Спирмен</th>
+                            <th class="num">n</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corr-rows"></tbody>
+                </table>
+            </div>
+        </section>
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Игроки</h2>
+                <p class="hint">Рейтинг с половины 1 против G+A и xG половины 2.</p>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Игрок</th>
+                            <th>Амплуа</th>
+                            <th class="num">рейтинг</th>
+                            <th class="num">G+A/60 fit</th>
+                            <th class="num">G+A/60 out</th>
+                            <th class="num">xG/60 out</th>
+                            <th class="num">AV/60 out</th>
+                            <th class="num">ТОИ fit</th>
+                            <th class="num">ТОИ out</th>
+                        </tr>
+                    </thead>
+                    <tbody id="player-rows"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <script src="js/validate.js"></script>
+</body>
+</html>

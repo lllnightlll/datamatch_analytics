@@ -3,50 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data Match — время на льду</title>
+    <title>Data Match — рейтинг</title>
     <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
     <header class="top">
         <div>
-            <p class="kicker">ХК Авангард · Data Match · шаг 2</p>
-            <h1>Время на льду</h1>
+            <p class="kicker">ХК Авангард · Data Match · шаг 5</p>
+            <h1>Рейтинг на 60 минут</h1>
             <nav class="nav">
                 <a class="nav-link" href="/">События</a>
-                <a class="nav-link active" href="/toi.html">Время на льду</a>
+                <a class="nav-link" href="/toi.html">Время на льду</a>
                 <a class="nav-link" href="/xg.html">xG</a>
                 <a class="nav-link" href="/threat.html">Угроза</a>
-                <a class="nav-link" href="/ratings.html">Рейтинг</a>
+                <a class="nav-link active" href="/ratings.html">Рейтинг</a>
                 <a class="nav-link" href="/validate.html">Проверка</a>
                 <a class="nav-link" href="/deliver.html">Сдача</a>
             </nav>
             <p class="lead">
-                ТОИ восстановлен из смен: actor вышел, other ушёл.
-                Буллиты (period = 0) и вратари не входят. Порог для рейтинга
-                задан в toi-rules.json (по умолчанию 20 минут).
+                Сырая ценность / 60 мин плюс ridge RAPM по 5v5: партнёры +,
+                соперники −. Итог сжимается к нулю при малом ТОИ.
+                Интервал — bootstrap по матчам.
             </p>
         </div>
         <div class="actions">
-            <a class="btn" id="download-json" href="/api/toi?split=test">Скачать JSON</a>
-            <a class="btn btn-accent" id="download-csv" href="/api/toi.csv?split=test">Скачать CSV</a>
+            <a class="btn" href="/api/ratings">Скачать JSON</a>
+            <a class="btn btn-accent" href="/api/ratings.csv">Скачать CSV</a>
         </div>
     </header>
-
     <main>
         <section id="error" class="banner hidden" hidden></section>
         <section class="stats" id="stats"></section>
-
         <section class="panel">
             <div class="panel-head">
-                <h2>Полевые игроки</h2>
+                <h2>Полевые игроки теста</h2>
                 <div class="filters">
-                    <label>
-                        Набор
-                        <select id="split-filter">
-                            <option value="test" selected>тест, 84 матча</option>
-                            <option value="train">train, 999 матчей</option>
-                        </select>
-                    </label>
                     <label>
                         Команда
                         <select id="team-filter">
@@ -81,17 +72,21 @@
                             <th>Амплуа</th>
                             <th>Команда</th>
                             <th class="num">Игр</th>
-                            <th class="num">ТОИ, мин</th>
-                            <th class="num">5v5</th>
-                            <th class="num">Спецбригады</th>
-                            <th>Порог</th>
+                            <th class="num">ТОИ</th>
+                            <th class="num">сырой /60</th>
+                            <th class="num">5v5 /60</th>
+                            <th class="num">RAPM</th>
+                            <th class="num">рейтинг</th>
+                            <th class="num">lo</th>
+                            <th class="num">hi</th>
+                            <th>интервал</th>
                         </tr>
                     </thead>
-                    <tbody id="toi-rows"></tbody>
+                    <tbody id="rating-rows"></tbody>
                 </table>
             </div>
         </section>
     </main>
-    <script src="js/toi.js"></script>
+    <script src="js/ratings.js"></script>
 </body>
 </html>

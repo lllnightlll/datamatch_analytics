@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Match — test_ratings.csv</title>
+    <link rel="stylesheet" href="style/styles.css">
+</head>
+<body>
+    <header class="top">
+        <div>
+            <p class="kicker">ХК Авангард · Data Match · шаг 7</p>
+            <h1>Файл сдачи</h1>
+            <nav class="nav">
+                <a class="nav-link" href="/">События</a>
+                <a class="nav-link" href="/toi.html">Время на льду</a>
+                <a class="nav-link" href="/xg.html">xG</a>
+                <a class="nav-link" href="/threat.html">Угроза</a>
+                <a class="nav-link" href="/ratings.html">Рейтинг</a>
+                <a class="nav-link" href="/validate.html">Проверка</a>
+                <a class="nav-link active" href="/deliver.html">Сдача</a>
+            </nav>
+            <p class="lead">
+                Официальный test_ratings.csv: player_id, rating, lo, hi.
+                Только полевые с порогом ТОИ — и Авангард, и соперники.
+                Вратари и реальные имена не входят.
+            </p>
+        </div>
+        <div class="actions">
+            <a class="btn" href="/api/test-ratings">Скачать JSON</a>
+            <a class="btn btn-accent" href="/api/test_ratings.csv">Скачать test_ratings.csv</a>
+        </div>
+    </header>
+    <main>
+        <section id="error" class="banner hidden" hidden></section>
+        <section class="stats" id="stats"></section>
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Строки файла</h2>
+                <p class="hint" id="path-hint">Пишется в корень репозитория при старте сервера.</p>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>player_id</th>
+                            <th class="num">rating</th>
+                            <th class="num">lo</th>
+                            <th class="num">hi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rows"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <script src="js/deliver.js"></script>
+</body>
+</html>

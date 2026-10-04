@@ -195,6 +195,45 @@ input, select {
     background: var(--ok);
 }
 
+.bar-neg > span {
+    background: var(--danger);
+}
+
+.rink-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.rink-canvas {
+    width: min(100%, 732px);
+    background: #0c1014;
+    border: 1px solid var(--line);
+}
+
+.interval {
+    position: relative;
+    height: 12px;
+    min-width: 88px;
+    background: #232b32;
+}
+
+.interval-bar {
+    position: absolute;
+    top: 3px;
+    height: 6px;
+    background: var(--accent);
+    opacity: 0.55;
+}
+
+.interval-mark {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 12px;
+    background: var(--text);
+    transform: translateX(-1px);
+}
+
 .table-wrap {
     overflow: auto;
     max-height: 560px;

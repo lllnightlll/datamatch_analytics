@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Match — угроза</title>
+    <link rel="stylesheet" href="style/styles.css">
+</head>
+<body>
+    <header class="top">
+        <div>
+            <p class="kicker">ХК Авангард · Data Match · шаг 4</p>
+            <h1>Сетка угрозы и ценность действий</h1>
+            <nav class="nav">
+                <a class="nav-link" href="/">События</a>
+                <a class="nav-link" href="/toi.html">Время на льду</a>
+                <a class="nav-link" href="/xg.html">xG</a>
+                <a class="nav-link active" href="/threat.html">Угроза</a>
+                <a class="nav-link" href="/ratings.html">Рейтинг</a>
+                <a class="nav-link" href="/validate.html">Проверка</a>
+                <a class="nav-link" href="/deliver.html">Сдача</a>
+            </nav>
+            <p class="lead">
+                Клетка — вероятность, что в ближайших событиях бросит та же команда.
+                Пас даёт Δугрозы, отбор — плюс, потеря — минус. Только типы из train∩test.
+            </p>
+        </div>
+        <div class="actions">
+            <a class="btn" href="/api/threat">Скачать JSON</a>
+            <a class="btn btn-accent" href="/api/threat.csv">Скачать топ CSV</a>
+        </div>
+    </header>
+    <main>
+        <section id="error" class="banner hidden" hidden></section>
+        <section class="stats" id="stats"></section>
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Карта угрозы (train)</h2>
+                <p class="hint">Атака команды актёра — вправо (x&gt;0). Тёплый цвет — чаще бросают дальше.</p>
+            </div>
+            <div class="rink-wrap">
+                <canvas id="heatmap" class="rink-canvas" width="732" height="360"></canvas>
+            </div>
+        </section>
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Сумма ценности по семействам (тест)</h2>
+                <p class="hint">Знак зависит от того, куда шайба уходит после действия.</p>
+            </div>
+            <div id="families" class="families"></div>
+        </section>
+        <section class="panel">
+            <div class="panel-head">
+                <h2>Топ полевых теста по сумме ценности</h2>
+                <p class="hint">Ещё не рейтинг на 60 минут и не RAPM — сырая сумма Δугрозы.</p>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr id="player-head"></tr>
+                    </thead>
+                    <tbody id="player-rows"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <script src="js/threat.js"></script>
+</body>
+</html>
