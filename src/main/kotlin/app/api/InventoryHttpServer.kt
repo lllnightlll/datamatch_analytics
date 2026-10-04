@@ -3,12 +3,20 @@ package app.api
 import app.api.dto.ErrorDto
 import app.api.dto.HealthDto
 import app.api.dto.InventoryMapper
+import app.api.dto.DeliverableMapper
+import app.api.dto.RatingMapper
+import app.api.dto.ValidationMapper
+import app.api.dto.ThreatMapper
 import app.api.dto.ToiMapper
 import app.api.dto.XgMapper
 import app.config.AppConfig
 import app.domain.model.DatasetKind
+import app.service.ActionValueService
 import app.service.DatasetInventoryService
+import app.service.DeliverableService
+import app.service.RatingService
 import app.service.ToiService
+import app.service.ValidationService
 import app.service.XgService
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
@@ -35,6 +43,10 @@ class InventoryHttpServer(
     private val inventoryService: DatasetInventoryService,
     private val toiService: ToiService,
     private val xgService: XgService,
+    private val actionValueService: ActionValueService,
+    private val ratingService: RatingService,
+    private val validationService: ValidationService,
+    private val deliverableService: DeliverableService,
 ) {
     private val logger = LoggerFactory.getLogger(InventoryHttpServer::class.java)
 
@@ -42,6 +54,10 @@ class InventoryHttpServer(
         val inventory = inventoryService.get()
         val testToi = toiService.get(DatasetKind.TEST)
         val xg = xgService.get()
+        val threat = actionValueService.get()
+        val ratings = ratingService.get()
+        val validation = validationService.get()
+        val deliverable = deliverableService.get()
         logger.info(
             "Инвентарь готов: train games={}, test games={}, shared event types={}",
             inventory.train.nGames,
@@ -59,6 +75,29 @@ class InventoryHttpServer(
             xg.holdout.logLoss,
             xg.test.nGoals,
             xg.test.sumXg,
+        )
+        logger.info(
+            "Угроза: obs={}, rate={}, test skaters={}",
+            threat.nObservations,
+            threat.globalRate,
+            threat.players.size,
+        )
+        logger.info(
+            "Рейтинг: minTOI={}, median={}, avangard={}",
+            ratings.nWithMinToi,
+            ratings.medianRating,
+            ratings.nAvangard,
+        )
+        logger.info(
+            "Split-half: players={}, correlations={}",
+            validation.nPlayers,
+            validation.correlations.size,
+        )
+        logger.info(
+            "Сдача: {} строк={}, T113={}",
+            deliverable.path.fileName,
+            deliverable.nRows,
+            deliverable.nAvangard,
         )
         logger.info("Откройте http://127.0.0.1:{}", config.httpPort)
         embeddedServer(Netty, port = config.httpPort, host = "127.0.0.1") {
@@ -86,7 +125,51 @@ class InventoryHttpServer(
             }
             routing {
                 get("/api/health") {
-                    call.respond(HealthDto(status = "ok", step = "3-xg"))
+                    call.respond(HealthDto(status = "ok", step = "7-csv"))
+                }
+                get("/api/test-ratings") {
+                    call.respond(DeliverableMapper.toDto(deliverableService.get()))
+                }
+                get("/api/test_ratings.csv") {
+                    val csv = deliverableService.csv()
+                    call.response.header(
+                        HttpHeaders.ContentDisposition,
+                        "attachment; filename=\"test_ratings.csv\"",
+                    )
+                    call.respondText(csv, ContentType.parse("text/csv; charset=utf-8"))
+                }
+                get("/api/validate") {
+                    call.respond(ValidationMapper.toDto(validationService.get()))
+                }
+                get("/api/validate.csv") {
+                    val csv = ValidationMapper.toCsv(validationService.get())
+                    call.response.header(
+                        HttpHeaders.ContentDisposition,
+                        "attachment; filename=\"split_half_correlations.csv\"",
+                    )
+                    call.respondText(csv, ContentType.parse("text/csv; charset=utf-8"))
+                }
+                get("/api/ratings") {
+                    call.respond(RatingMapper.toDto(ratingService.get()))
+                }
+                get("/api/ratings.csv") {
+                    val csv = RatingMapper.toCsv(ratingService.get())
+                    call.response.header(
+                        HttpHeaders.ContentDisposition,
+                        "attachment; filename=\"test_ratings_preview.csv\"",
+                    )
+                    call.respondText(csv, ContentType.parse("text/csv; charset=utf-8"))
+                }
+                get("/api/threat") {
+                    call.respond(ThreatMapper.toDto(actionValueService.get()))
+                }
+                get("/api/threat.csv") {
+                    val csv = ThreatMapper.toCsv(actionValueService.get())
+                    call.response.header(
+                        HttpHeaders.ContentDisposition,
+                        "attachment; filename=\"threat_test_players.csv\"",
+                    )
+                    call.respondText(csv, ContentType.parse("text/csv; charset=utf-8"))
                 }
                 get("/api/xg") {
                     call.respond(XgMapper.toDto(xgService.get()))
