@@ -1,5 +1,6 @@
 package app.domain.xg
 
+import app.domain.math.LinearSystem
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
@@ -34,7 +35,7 @@ class LogisticRegressionTest {
             doubleArrayOf(2.0, 1.0),
             doubleArrayOf(1.0, 2.0),
         )
-        val x = LogisticRegression.solve(matrix, doubleArrayOf(4.0, 5.0))
+        val x = LinearSystem.solve(matrix, doubleArrayOf(4.0, 5.0))
         assertTrue(kotlin.math.abs(x[0] - 1.0) < 1e-9)
         assertTrue(kotlin.math.abs(x[1] - 2.0) < 1e-9)
     }
