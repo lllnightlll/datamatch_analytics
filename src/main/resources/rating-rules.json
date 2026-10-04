@@ -1,0 +1,12 @@
+{
+  "ridgeLambda": 4000.0,
+  "minStintSeconds": 3.0,
+  "bootstrapDraws": 160,
+  "bootstrapSeed": 113,
+  "loQuantile": 0.025,
+  "hiQuantile": 0.975,
+  "shrinkPriorMinutes": 40.0,
+  "rapmFiveOnFiveOnly": true,
+  "includeRinkEffects": true,
+  "minBootstrapHits": 24
+}

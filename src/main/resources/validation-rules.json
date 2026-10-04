@@ -1,0 +1,7 @@
+{
+  "minHalfToiMinutes": 20.0,
+  "minGamesPerHalf": 2,
+  "goalType": "goal",
+  "assistTypes": ["assist_primary", "assist_secondary"],
+  "shotTypes": ["goal", "shot_on_target", "shot_missed", "shot_blocked"]
+}
