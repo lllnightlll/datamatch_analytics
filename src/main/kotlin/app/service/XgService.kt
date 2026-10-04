@@ -7,6 +7,7 @@ import app.domain.xg.CalibrationBin
 import app.domain.xg.LogisticRegression
 import app.domain.xg.PlayerXg
 import app.domain.xg.RinkCatalog
+import app.domain.xg.ScoredShot
 import app.domain.xg.ShotAttempt
 import app.domain.xg.ShotFeatureExtractor
 import app.domain.xg.XgReport
@@ -22,11 +23,13 @@ class XgService(
     private val rules: XgRules,
 ) {
     private val logger = LoggerFactory.getLogger(XgService::class.java)
-    private val cached: XgReport by lazy { build() }
+    private val cached: XgFit by lazy { build() }
 
-    fun get(): XgReport = cached
+    fun get(): XgReport = cached.report
 
-    private fun build(): XgReport {
+    fun trainScoredShots(): List<ScoredShot> = cached.trainScored
+
+    private fun build(): XgFit {
         val started = System.currentTimeMillis()
         val catalog = RinkCatalog(
             landmarks = rinkGeometryRepository.loadAll(),
@@ -46,6 +49,14 @@ class XgService(
         val fullModel = fit(extractor, trainShots)
         val test = metrics(fullModel, extractor, testShots)
         val players = playerXg(fullModel, extractor, testShots)
+        val trainScored = trainShots.map { shot ->
+            ScoredShot(
+                matchId = shot.matchId,
+                playerId = shot.playerId,
+                xg = fullModel.predictProba(extractor.extract(shot)),
+                isGoal = shot.isGoal,
+            )
+        }
 
         val report = XgReport(
             rules = rules,
@@ -63,8 +74,13 @@ class XgService(
             "%.1f".format(test.sumXg),
             System.currentTimeMillis() - started,
         )
-        return report
+        return XgFit(report, trainScored)
     }
+
+    private data class XgFit(
+        val report: XgReport,
+        val trainScored: List<ScoredShot>,
+    )
 
     private fun fit(extractor: ShotFeatureExtractor, shots: List<ShotAttempt>): LogisticRegression {
         val features = shots.map { extractor.extract(it) }
