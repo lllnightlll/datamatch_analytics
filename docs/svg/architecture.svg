@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" role="img" aria-labelledby="archTitle archDesc">
+  <title id="archTitle">@E8B5:BC@0 Datamatch Analytics</title>
+  <desc id="archDesc">!;>8: 2E>4, HTTP, A5@28AK, 4><5=, 40==K5 DuckDB, A40G0 CSV</desc>
+  <defs>
+    <linearGradient id="archBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#101418"/>
+      <stop offset="100%" stop-color="#141a20"/>
+    </linearGradient>
+  </defs>
+  <rect width="980" height="560" rx="16" fill="url(#archBg)"/>
+  <text x="28" y="34" fill="#3db8c5" font-family="Segoe UI, system-ui, sans-serif" font-size="12" letter-spacing="1.6"> %""#  · OOP !</text>
+  <text x="28" y="58" fill="#93a0ab" font-family="Segoe UI, system-ui, sans-serif" font-size="13">@0C75@ ’ Ktor ’ A5@28AK ’ 4><5= ’ DuckDB ’ parquet/csv · A40G0 test_ratings.csv</text>
+
+  <g font-family="Segoe UI, system-ui, sans-serif">
+    <rect x="28" y="80" width="924" height="70" rx="12" fill="#1b2830" stroke="#3db8c5"/>
+    <text x="48" y="108" fill="#3db8c5" font-size="11">%</text>
+    <text x="48" y="132" fill="#e8eef3" font-size="14">@0C75@ HTML · DatamatchApp.kt · InventoryHttpServer.kt :8787</text>
+
+    <rect x="28" y="168" width="924" height="86" rx="12" fill="#18241c" stroke="#3fa66b"/>
+    <text x="48" y="196" fill="#3fa66b" font-size="11">! !+</text>
+    <text x="48" y="224" fill="#e8eef3" font-size="13">Inventory · TOI · xG · ActionValue · Rating · Validation · Deliverable</text>
+    <text x="48" y="244" fill="#93a0ab" font-size="12">:064K9 >BGQB :5H8@C5BAO =0 AB0@B5, HTML 8 CSV G8B0NB >4=8 G8A;0</text>
+
+    <rect x="28" y="272" width="924" height="108" rx="12" fill="#2a1c1c" stroke="#c45c5c"/>
+    <text x="48" y="300" fill="#c45c5c" font-size="11"></text>
+    <text x="48" y="328" fill="#e8eef3" font-size="13">SharedEventPolicy · ToiReconstructor · LogisticRegression · ActionValuator</text>
+    <text x="48" y="350" fill="#e8eef3" font-size="13">OnIceStintBuilder · RidgeRapm · MatchHalfSplitter · OfficialRatingsExporter</text>
+
+    <rect x="28" y="398" width="560" height="86" rx="12" fill="#2a2414" stroke="#c9a227"/>
+    <text x="48" y="426" fill="#c9a227" font-size="11">+</text>
+    <text x="48" y="454" fill="#e8eef3" font-size="13"> 5?>78B>@88 ’ DuckDbSession ’ datas/*.parquet, datas/test/*</text>
+    <text x="48" y="474" fill="#93a0ab" font-size="12">?>B>: <0BG59, 157 703@C7:8 4,15 <;= AB@>: 2 heap</text>
+
+    <rect x="608" y="398" width="344" height="86" rx="12" fill="#1a2438" stroke="#6366f1"/>
+    <text x="628" y="426" fill="#a5b4fc" font-size="11">!'</text>
+    <text x="628" y="454" fill="#e8eef3" font-size="13">test_ratings.csv</text>
+    <text x="628" y="474" fill="#93a0ab" font-size="12">player_id, rating, lo, hi</text>
+
+    <path d="M490 150 L490 168" stroke="#3db8c5" stroke-width="2" marker-end="url(#arr)"/>
+    <path d="M490 254 L490 272" stroke="#3fa66b" stroke-width="2"/>
+    <path d="M490 380 L490 398" stroke="#c45c5c" stroke-width="2"/>
+    <path d="M308 380 L308 398" stroke="#c45c5c" stroke-width="2"/>
+    <path d="M780 380 L780 398" stroke="#c45c5c" stroke-width="2"/>
+  </g>
+  <text x="28" y="536" fill="#93a0ab" font-family="Segoe UI, system-ui, sans-serif" font-size="12">=B5@0:B82=0O AE5<0: gitdiagram.com/lllnightlll/datamatch_analytics</text>
+</svg>
