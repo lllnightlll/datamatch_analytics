@@ -4,7 +4,7 @@
 
 Метод учится на **999 матчах** train и применяется к **84 матчам ХК «Авангард»** (`T113`, КХЛ 2025/26). Рейтинг — ценность действий на 60 минут плюс RAPM-контекст партнёров и соперников, с bootstrap-интервалом. Вратари не оцениваются.
 
-![Конвейер семи шагов](docs/svg/pipeline.svg)
+![Конвейер семи шагов](docs/img/pipeline.png)
 
 | | |
 |---|---|
@@ -61,7 +61,7 @@ datamatch_analytics/
         └── player_seasons_test.csv
 ```
 
-![Обязательные файлы datas](docs/svg/datas.svg)
+![Обязательные файлы datas](docs/img/datas.png)
 
 Если датасет уже лежит в `data/` вместо `datas/`, приложение найдёт его само. Явный путь:
 
@@ -138,7 +138,7 @@ curl.exe http://127.0.0.1:8787/api/health
 
 Интерактивная схема репозитория: **[gitdiagram.com/lllnightlll/datamatch_analytics](https://gitdiagram.com/lllnightlll/datamatch_analytics)**.
 
-![Слои приложения](docs/svg/architecture.svg)
+![Слои приложения](docs/img/architecture.png)
 
 ```
 datamatch_analytics/
@@ -179,7 +179,7 @@ datamatch_analytics/
 
 ## Как работает аналитика
 
-![Четыре блока методики](docs/svg/method.svg)
+![Четыре блока методики](docs/img/method.png)
 
 На старте сервисы считаются **один раз** и отдаются всем страницам. Порядок жёсткий: сетка угрозы и xG — только train; кредиты и RAPM test — уже готовой сеткой.
 

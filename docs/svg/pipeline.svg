@@ -1,69 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 220" role="img" aria-labelledby="pipelineTitle pipelineDesc">
-  <title id="pipelineTitle">>=2595@ >F5=:8 ?>;52KE 83@>:>2</title>
-  <desc id="pipelineDesc">!5<L H03>2: 8=25=B0@L, ", xG, C3@>70, @59B8=3, split-half, test_ratings.csv</desc>
-  <defs>
-    <linearGradient id="pipeBg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#101418"/>
-      <stop offset="100%" stop-color="#181e24"/>
-    </linearGradient>
-    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.35"/>
-    </filter>
-  </defs>
-  <rect width="980" height="220" rx="16" fill="url(#pipeBg)"/>
-  <text x="28" y="32" fill="#3db8c5" font-family="Segoe UI, system-ui, sans-serif" font-size="12" letter-spacing="1.4">DATA MATCH · %   T113</text>
-  <g font-family="Segoe UI, system-ui, sans-serif" filter="url(#soft)">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="220" viewBox="0 0 980 220">
+  <rect width="980" height="220" rx="16" fill="#101418"/>
+  <text x="28" y="32" fill="#3db8c5" font-family="Segoe UI, Arial, sans-serif" font-size="12" letter-spacing="1.4">DATA MATCH Â· HK AVANGARD T113</text>
+  <g font-family="Segoe UI, Arial, sans-serif">
     <g transform="translate(24,52)">
       <rect width="116" height="132" rx="10" fill="#1c242c" stroke="#2a333c"/>
       <text x="58" y="28" text-anchor="middle" fill="#3db8c5" font-size="11">01</text>
-      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="600">=25=B0@L</text>
-      <text x="58" y="82" text-anchor="middle" fill="#93a0ab" font-size="11">train ) test</text>
-      <text x="58" y="102" text-anchor="middle" fill="#93a0ab" font-size="11">76 B8?>2</text>
+      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="700">Inventory</text>
+      <text x="58" y="82" text-anchor="middle" fill="#93a0ab" font-size="11">train âˆ© test</text>
+      <text x="58" y="102" text-anchor="middle" fill="#93a0ab" font-size="11">76 types</text>
     </g>
     <g transform="translate(156,52)">
       <rect width="116" height="132" rx="10" fill="#1c242c" stroke="#2a333c"/>
       <text x="58" y="28" text-anchor="middle" fill="#3db8c5" font-size="11">02</text>
-      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="600">"</text>
+      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="700">TOI</text>
       <text x="58" y="82" text-anchor="middle" fill="#93a0ab" font-size="11">shift_*</text>
-      <text x="58" y="102" text-anchor="middle" fill="#93a0ab" font-size="11">?>@>3 20 <8=</text>
+      <text x="58" y="102" text-anchor="middle" fill="#93a0ab" font-size="11">min 20 min</text>
     </g>
     <g transform="translate(288,52)">
       <rect width="116" height="132" rx="10" fill="#1c242c" stroke="#2a333c"/>
       <text x="58" y="28" text-anchor="middle" fill="#3db8c5" font-size="11">03</text>
-      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="600">xG</text>
-      <text x="58" y="82" text-anchor="middle" fill="#93a0ab" font-size="11">;>38B 1@>A:0</text>
-      <text x="58" y="102" text-anchor="middle" fill="#93a0ab" font-size="11">157 B8?0 «3>;»</text>
+      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="700">xG</text>
+      <text x="58" y="82" text-anchor="middle" fill="#93a0ab" font-size="11">shot logit</text>
+      <text x="58" y="102" text-anchor="middle" fill="#93a0ab" font-size="11">no goal type</text>
     </g>
     <g transform="translate(420,52)">
       <rect width="116" height="132" rx="10" fill="#1c242c" stroke="#2a333c"/>
       <text x="58" y="28" text-anchor="middle" fill="#3db8c5" font-size="11">04</text>
-      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="600">#3@>70</text>
-      <text x="58" y="82" text-anchor="middle" fill="#93a0ab" font-size="11">”T :;5B:8</text>
-      <text x="58" y="102" text-anchor="middle" fill="#93a0ab" font-size="11">?0A / >B1>@</text>
+      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="700">Threat</text>
+      <text x="58" y="82" text-anchor="middle" fill="#93a0ab" font-size="11">Î”T cell</text>
+      <text x="58" y="102" text-anchor="middle" fill="#93a0ab" font-size="11">pass / steal</text>
     </g>
     <g transform="translate(552,52)">
       <rect width="116" height="132" rx="10" fill="#1c242c" stroke="#2a333c"/>
       <text x="58" y="28" text-anchor="middle" fill="#3db8c5" font-size="11">05</text>
-      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="600"> 59B8=3</text>
+      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="700">Rating</text>
       <text x="58" y="82" text-anchor="middle" fill="#93a0ab" font-size="11">/60 + RAPM</text>
       <text x="58" y="102" text-anchor="middle" fill="#93a0ab" font-size="11">bootstrap</text>
     </g>
     <g transform="translate(684,52)">
       <rect width="116" height="132" rx="10" fill="#1c242c" stroke="#2a333c"/>
       <text x="58" y="28" text-anchor="middle" fill="#3db8c5" font-size="11">06</text>
-      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="600">@>25@:0</text>
+      <text x="58" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="700">Validate</text>
       <text x="58" y="82" text-anchor="middle" fill="#93a0ab" font-size="11">split-half</text>
       <text x="58" y="102" text-anchor="middle" fill="#93a0ab" font-size="11">vs G+A</text>
     </g>
     <g transform="translate(816,52)">
       <rect width="140" height="132" rx="10" fill="#16343a" stroke="#3db8c5"/>
       <text x="70" y="28" text-anchor="middle" fill="#3db8c5" font-size="11">07</text>
-      <text x="70" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="600">!40G0</text>
+      <text x="70" y="58" text-anchor="middle" fill="#e8eef3" font-size="13" font-weight="700">Deliver</text>
       <text x="70" y="82" text-anchor="middle" fill="#93a0ab" font-size="11">test_ratings.csv</text>
       <text x="70" y="102" text-anchor="middle" fill="#93a0ab" font-size="11">id, rating, lo, hi</text>
     </g>
   </g>
-  <g fill="#3db8c5" opacity="0.85">
+  <g fill="#3db8c5">
     <polygon points="146,118 154,114 154,122"/>
     <polygon points="278,118 286,114 286,122"/>
     <polygon points="410,118 418,114 418,122"/>
