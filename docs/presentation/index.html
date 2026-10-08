@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Овертайм · Data Match · Авангард</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg0: #12081c;
+            --bg1: #1a0a28;
+            --red: #e10600;
+            --red-deep: #7a0018;
+            --line: rgba(255, 255, 255, 0.28);
+            --text: #f6f7fb;
+            --muted: rgba(246, 247, 251, 0.72);
+            --card: rgba(10, 6, 18, 0.38);
+            --slide-bg:
+                radial-gradient(120% 80% at 50% 115%, rgba(225, 6, 0, 0.72) 0%, rgba(90, 0, 24, 0.18) 38%, transparent 62%),
+                radial-gradient(70% 50% at 80% 0%, rgba(88, 30, 140, 0.35), transparent 55%),
+                linear-gradient(180deg, #1c102e 0%, #14081c 46%, #1a0612 100%);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            height: 100%;
+            background: #07040c;
+            color: var(--text);
+            font-family: Manrope, "Segoe UI", sans-serif;
+            overflow: hidden;
+        }
+
+        .stage {
+            height: 100%;
+            padding: 18px;
+        }
+
+        .deck {
+            position: relative;
+            height: 100%;
+            border: 1.5px solid var(--line);
+            border-radius: 28px;
+            overflow: hidden;
+            background: var(--slide-bg);
+        }
+
+        .hawk {
+            position: absolute;
+            top: 22px;
+            right: 28px;
+            width: 86px;
+            height: 86px;
+            object-fit: contain;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .slide {
+            display: none;
+            height: 100%;
+            padding: 40px 56px 70px;
+            position: relative;
+            background: transparent;
+        }
+
+        .slide.active { display: flex; flex-direction: column; }
+
+        .fill {
+            flex: 1;
+            min-height: 0;
+            display: grid;
+            align-items: stretch;
+        }
+
+        .kicker {
+            font-size: 13px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 64px;
+            line-height: 1.02;
+            font-weight: 800;
+            letter-spacing: 0.01em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 46px;
+            line-height: 1.05;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .lead {
+            font-size: 20px;
+            color: var(--muted);
+            max-width: 920px;
+            line-height: 1.45;
+        }
+
+        .card {
+            border: 1.5px solid var(--line);
+            border-radius: 22px;
+            background: var(--card);
+            padding: 8px 28px;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 28px;
+            padding: 22px 0;
+            border-bottom: 1px solid var(--line);
+            align-items: start;
+        }
+
+        .row:last-child { border-bottom: none; }
+
+        .row b {
+            font-size: 18px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding-top: 2px;
+        }
+
+        .row p {
+            font-size: 20px;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        .pills {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .pill {
+            border: 1.5px solid var(--line);
+            border-radius: 18px;
+            padding: 22px 20px 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            border: 1.5px solid var(--line);
+            border-radius: 999px;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .pill p {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .grid-3, .grid-2, .steps {
+            display: grid;
+            gap: 16px;
+        }
+
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-2 { grid-template-columns: 1.15fr 0.85fr; }
+        .steps {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+        .steps-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            min-height: 0;
+        }
+        .steps-row.two { grid-template-columns: 1fr 1fr; }
+        .stack {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 16px;
+            min-height: 0;
+        }
+
+        .tile {
+            border: 1.5px solid var(--line);
+            border-radius: 18px;
+            padding: 22px 22px 20px;
+            background: var(--card);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tile .n {
+            color: #ff4d3a;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 0.12em;
+        }
+
+        .tile h3 {
+            font-size: 24px;
+            margin: 10px 0 10px;
+            font-weight: 800;
+        }
+
+        .tile p { color: var(--muted); font-size: 17px; line-height: 1.45; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 20px;
+            flex: 1;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 20px 12px;
+            border-bottom: 1px solid var(--line);
+            vertical-align: middle;
+        }
+
+        th { color: var(--muted); font-weight: 600; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; }
+        td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+        .good { color: #7dffb0; }
+        .mid { color: #ffe08a; }
+        .bad { color: #ff8a8a; }
+
+        .names {
+            display: flex;
+            gap: 18px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+
+        .name-card {
+            border: 1.5px solid var(--line);
+            border-radius: 16px;
+            padding: 16px 22px;
+            min-width: 280px;
+            background: var(--card);
+        }
+
+        .name-card small { color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; font-weight: 700; }
+        .name-card strong { display: block; font-size: 22px; margin-top: 4px; }
+
+        .title-meta {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            padding-top: 28px;
+        }
+
+        .big-team {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .qr-wrap {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 36px;
+            align-items: center;
+            flex: 1;
+        }
+
+        .qr-box {
+            justify-self: end;
+            background: #fff;
+            border-radius: 24px;
+            padding: 18px;
+            width: 360px;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .qr-box img, .qr-box svg { width: 100%; height: auto; display: block; }
+
+        code {
+            font-family: Consolas, "Cascadia Mono", ui-monospace, monospace;
+            color: #fff;
+            font-size: 0.92em;
+        }
+
+        a.gh {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 800;
+            text-decoration: none;
+            border-bottom: 2px solid var(--red);
+            line-height: 1.35;
+        }
+
+        .footer {
+            position: absolute;
+            left: 56px;
+            right: 56px;
+            bottom: 22px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .help {
+            position: absolute;
+            right: 56px;
+            bottom: 22px;
+            z-index: 6;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .compare li {
+            list-style: none;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 18px;
+            color: var(--muted);
+        }
+
+        .compare li strong { color: #fff; }
+
+        ul.plain { padding-left: 0; }
+        ul.plain li {
+            list-style: none;
+            padding: 10px 0 10px 18px;
+            position: relative;
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.4;
+        }
+        ul.plain li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 18px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--red);
+        }
+
+        @media print {
+            @page {
+                size: 1920px 1080px;
+                margin: 0;
+            }
+            html, body, .stage, .deck {
+                width: 1920px;
+                height: auto;
+                overflow: visible;
+                background: #07040c;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .stage { padding: 0; }
+            .deck {
+                border: none;
+                border-radius: 0;
+                height: auto;
+            }
+            .hawk { display: none; }
+            .slide {
+                display: flex !important;
+                flex-direction: column;
+                width: 1920px;
+                height: 1080px;
+                overflow: hidden;
+                background: var(--slide-bg) !important;
+                page-break-after: always;
+                break-after: page;
+                break-inside: avoid;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .slide::after {
+                content: "";
+                position: absolute;
+                top: 22px;
+                right: 28px;
+                width: 86px;
+                height: 86px;
+                background: url("assets/hawk.jpg") center / contain no-repeat;
+            }
+            .slide:last-of-type {
+                page-break-after: auto;
+                break-after: auto;
+            }
+            .footer, .help { display: none; }
+            .fill { flex: 1; min-height: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stage">
+        <div class="deck">
+            <img class="hawk" src="assets/hawk.jpg" alt="Авангард">
+
+            <section class="slide active" data-title="Титул">
+                <p class="kicker">Data Match · ХК Авангард · T113 · КХЛ 2025/26</p>
+                <h1>Оценка<br>полевых игроков</h1>
+                <p class="lead">Ценность действий на 60 минут в контексте звена. Не счёт матча, не фамилии, не «точность на тесте».</p>
+                <div class="names">
+                    <div class="name-card">
+                        <small>Команда</small>
+                        <strong>Овертайм</strong>
+                    </div>
+                    <div class="name-card">
+                        <small>Разработка и аналитика</small>
+                        <strong>Щербак Руслан</strong>
+                    </div>
+                    <div class="name-card">
+                        <small>Разработка и аналитика</small>
+                        <strong>Зубова Мария</strong>
+                    </div>
+                </div>
+                <div class="title-meta">
+                    <div>
+                        <p class="big-team">Овертайм</p>
+                        <p class="lead" style="margin-top:6px">8 рабочих слайдов · train 999 матчей · test 84 матча Авангарда</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide" data-title="Методика">
+                <p class="kicker">Раздел 1</p>
+                <h2>Методика</h2>
+                <p class="lead" style="margin-bottom:22px">Что считаем простыми словами: не голы, а насколько действие приближает команду к броску.</p>
+                <div class="steps fill">
+                    <div class="steps-row">
+                        <article class="tile">
+                            <div class="n">01</div>
+                            <h3>Лёд</h3>
+                            <p>Секунды из смен <code>shift_*</code>. Без буллитов. В рейтинг — полевые с ≥ 20 мин.</p>
+                        </article>
+                        <article class="tile">
+                            <div class="n">02</div>
+                            <h3>Угроза T</h3>
+                            <p>Клетка 3 м: шанс, что своя команда бросит в ближайшие 12 событий.</p>
+                        </article>
+                        <article class="tile">
+                            <div class="n">03</div>
+                            <h3>Δ действия</h3>
+                            <p>Пас: T(куда) − T(откуда). Отбор +. Потеря −. Вход и выход относительно зоны.</p>
+                        </article>
+                    </div>
+                    <div class="steps-row two">
+                        <article class="tile">
+                            <div class="n">04</div>
+                            <h3>/ 60 мин</h3>
+                            <p>Сумма ценности делится на время. Иначе выигрывает тот, кто просто больше играет.</p>
+                        </article>
+                        <article class="tile">
+                            <div class="n">05</div>
+                            <h3>RAPM</h3>
+                            <p>5v5: свои +, соперники −. Ridge отделяет игрока от звена. Интервал — bootstrap матчей.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide" data-title="Почему так">
+                <p class="kicker">Раздел 1 · сравнение</p>
+                <h2>Почему не G+A</h2>
+                <div class="grid-2 fill">
+                    <div class="card" style="padding: 8px 28px;">
+                        <div class="row">
+                            <b>Голы и передачи</b>
+                            <p>Реализация и напарник. Момент без гола = ноль. Мало льда — мало очков.</p>
+                        </div>
+                        <div class="row">
+                            <b>Плюс-минус</b>
+                            <p>Следует за составом и счётом. Слабо отделяет защитника от края.</p>
+                        </div>
+                        <div class="row">
+                            <b>Наш рейтинг</b>
+                            <p>Создание угрозы, норма на 60 минут, вычет партнёров и соперников, доверительный интервал.</p>
+                        </div>
+                    </div>
+                    <div class="stack">
+                        <article class="tile">
+                            <h3>Без утечки в test</h3>
+                            <p>Только 76 типов событий из пересечения train ∩ test. Вбрасывания и удаления train-only не входят в модель.</p>
+                        </article>
+                        <article class="tile">
+                            <h3>Не 101 коэффициент</h3>
+                            <p>Один и тот же «пас» у своих ворот и под чужими — разная ценность. Геометрия важнее названия события.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide" data-title="Проверка">
+                <p class="kicker">Раздел 2</p>
+                <h2>Проверка на train</h2>
+                <p class="lead" style="margin-bottom:18px">999 матчей по <code>match_id</code>: 500 чётных — считаем рейтинг, 499 нечётных — смотрим будущую игру. 2760 полевых с ТОИ в обеих половинах. Это не метрика на 84 матчах Авангарда.</p>
+                <div class="card fill" style="padding: 12px 24px 8px; display:flex; flex-direction:column;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Предиктор (1-я половина)</th>
+                                <th>Что сравниваем</th>
+                                <th class="num">Спирмен → G+A/60</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Броски / 60</td>
+                                <td>База: объём бросков</td>
+                                <td class="num good">0.21</td>
+                            </tr>
+                            <tr>
+                                <td>G+A / 60</td>
+                                <td>База: прошлые очки</td>
+                                <td class="num mid">0.17</td>
+                            </tr>
+                            <tr>
+                                <td>Плюс-минус / 60</td>
+                                <td>База: командный +/-</td>
+                                <td class="num">0.09</td>
+                            </tr>
+                            <tr>
+                                <td>Рейтинг RAPM / 60</td>
+                                <td>Наша оценка угрозы</td>
+                                <td class="num">0.01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="lead" style="margin-top:18px">Честно: броски лучше угадывают будущие G+A. Наш рейтинг про создание момента, не про реализацию. Устойчивость — shrink при малом ТОИ и интервал [lo; hi] по 160 ресэмплам матчей.</p>
+            </section>
+
+            <section class="slide" data-title="Границы">
+                <p class="kicker">Раздел 3</p>
+                <h2>Где можно доверять</h2>
+                <div class="grid-2 fill">
+                    <div class="card" style="padding: 22px 28px;">
+                        <p class="tag">Можно</p>
+                        <ul class="plain">
+                            <li>Сравнивать полевых C / LW / RW / D с ≥ 20 минутами на тесте.</li>
+                            <li>Смотреть относительный порядок и ширину интервала, не «абсолютную силу».</li>
+                            <li>Читать рейтинг как вклад в угрозу в 5v5, а не как прогноз голов.</li>
+                            <li>Использовать id игрока. Фамилии в данные и отчёт не входят.</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="padding: 22px 28px;">
+                        <p class="tag">Нельзя</p>
+                        <ul class="plain">
+                            <li>Вратари, буллиты, редкие типы событий, которых нет в test.</li>
+                            <li>Игроки с узким интервалом из‑за малого льда — оценка сжата к нулю.</li>
+                            <li>Предсказывать счёт матча или заявлять «точность N% на Авангарде».</li>
+                            <li>Сопоставлять id с реальными людьми и публиковать датасет хакатона.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide" data-title="Сдача">
+                <p class="kicker">Результат</p>
+                <h2>test_ratings.csv</h2>
+                <div class="grid-3" style="margin-bottom:18px;">
+                    <article class="tile" style="min-height:auto;">
+                        <div class="n">Строки</div>
+                        <h3>421 полевой</h3>
+                        <p>Порог 20 минут ТОИ. Среди них 26 игроков T113.</p>
+                    </article>
+                    <article class="tile" style="min-height:auto;">
+                        <div class="n">Колонки</div>
+                        <h3>id, rating, lo, hi</h3>
+                        <p>Точка, 4 знака, <code>lo ≤ rating ≤ hi</code>, сортировка по player_id.</p>
+                    </article>
+                    <article class="tile" style="min-height:auto;">
+                        <div class="n">Запуск</div>
+                        <h3>gradlew run</h3>
+                        <p>Папка <code>datas/</code> рядом с проектом. Файл пишется в корень.</p>
+                    </article>
+                </div>
+                <div class="card">
+                    <div class="row">
+                        <b>Данные</b>
+                        <p>Только локально, в <code>datas/</code>. В git их нет и публиковать нельзя.</p>
+                    </div>
+                    <div class="row">
+                        <b>Стек</b>
+                        <p>Kotlin · DuckDB · Ktor. Один процесс считает отчёты и CSV — те же числа, что на экране.</p>
+                    </div>
+                    <div class="row">
+                        <b>Воспроизводимость</b>
+                        <p>С нуля: клонировать репозиторий, положить датасет в <code>datas/</code>, <code>.\gradlew.bat run</code> → <code>test_ratings.csv</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide" data-title="Важно">
+                <p class="kicker">Ограничения хакатона</p>
+                <h2>Важно</h2>
+                <div class="pills fill">
+                    <article class="pill">
+                        <div class="tag">Данные</div>
+                        <p>Только для хакатона, не публикуйте их. Каталог <code>datas/</code> в <code>.gitignore</code>.</p>
+                    </article>
+                    <article class="pill">
+                        <div class="tag">Анонимность</div>
+                        <p>Работаем с анонимными id. Не сопоставляем их с реальными игроками.</p>
+                    </article>
+                    <article class="pill">
+                        <div class="tag">Воспроизводимость</div>
+                        <p>Запуск с нуля выдаёт <code>test_ratings.csv</code>: те же 4 колонки, что у жюри.</p>
+                    </article>
+                    <article class="pill">
+                        <div class="tag">Код</div>
+                        <p>Код и презентация — жюри. Публичный репозиторий без датасета — на следующем слайде.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="slide" data-title="GitHub">
+                <p class="kicker">Команда Овертайм</p>
+                <h2>Код проекта</h2>
+                <div class="qr-wrap">
+                    <div>
+                        <p class="lead" style="margin-bottom:24px">Сканируйте QR или откройте репозиторий. Датасета внутри нет — только метод, сервис и сдача CSV.</p>
+                        <a class="gh" href="https://github.com/lllnightlll/datamatch_analytics" target="_blank" rel="noopener">github.com/lllnightlll/datamatch_analytics</a>
+                        <div class="names" style="margin-top:32px;">
+                            <div class="name-card">
+                                <small>Команда</small>
+                                <strong>Овертайм</strong>
+                            </div>
+                            <div class="name-card">
+                                <small>Авторы</small>
+                                <strong>Щербак Руслан<br>Зубова Мария</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qr-box">
+                        <img src="assets/qr-github.svg" alt="QR-код на GitHub">
+                    </div>
+                </div>
+            </section>
+
+            <div class="footer">
+                <span>Овертайм · Data Match · Авангард</span>
+                <span id="counter">1 / 8</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        const slides = [...document.querySelectorAll(".slide")];
+        const counter = document.getElementById("counter");
+        let i = 0;
+
+        function show(next) {
+            i = (next + slides.length) % slides.length;
+            slides.forEach((slide, idx) => slide.classList.toggle("active", idx === i));
+            counter.textContent = (i + 1) + " / " + slides.length;
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if (["ArrowRight", "PageDown", " ", "Enter"].includes(event.key)) {
+                event.preventDefault();
+                show(i + 1);
+            }
+            if (["ArrowLeft", "PageUp", "Backspace"].includes(event.key)) {
+                event.preventDefault();
+                show(i - 1);
+            }
+            if (event.key === "Home") show(0);
+            if (event.key === "End") show(slides.length - 1);
+        });
+
+        document.querySelector(".deck").addEventListener("click", (event) => {
+            if (event.target.closest("a")) return;
+            const mid = window.innerWidth / 2;
+            show(event.clientX >= mid ? i + 1 : i - 1);
+        });
+
+        window.showSlide = show;
+        window.slideCount = () => slides.length;
+        show(0);
+    </script>
+</body>
+</html>
